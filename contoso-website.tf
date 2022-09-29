@@ -44,12 +44,12 @@ resource "kubernetes_deployment" "contoso-website" {
 }
 
 
-resource "null_resource" "validation" {
-  depends_on = [module.aks]
-  triggers   = { always_run = timestamp() }
-  // The order of input values are important for bash
-  provisioner "local-exec" {
-    command     = "chmod +x ${path.module}/contoso-website.sh ;${path.module}/contoso-website.sh ${data.terraform_remote_state.aks.outputs.aks_cluster_resourcegroup_name} ${data.terraform_remote_state.aks.outputs.aks_cluster_id}"
-    interpreter = ["bash", "-c"]
-  }
-}
+# resource "null_resource" "validation" {
+#   depends_on = [kubernetes_deployment.contoso-website]
+#   triggers   = { always_run = timestamp() }
+#   // The order of input values are important for bash
+#   provisioner "local-exec" {
+#     command     = "chmod +x ${path.module}/contoso-website.sh ;${path.module}/contoso-website.sh ${data.terraform_remote_state.aks.outputs.aks_cluster_resourcegroup_name} ${data.terraform_remote_state.aks.outputs.aks_cluster_id}"
+#     interpreter = ["bash", "-c"]
+#   }
+# }
