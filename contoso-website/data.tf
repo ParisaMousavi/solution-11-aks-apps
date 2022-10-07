@@ -7,4 +7,3 @@ data "terraform_remote_state" "aks" {
     key                  = "terraform.tfstate"
   }
 }
-

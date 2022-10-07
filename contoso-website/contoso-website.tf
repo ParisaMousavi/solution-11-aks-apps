@@ -1,3 +1,16 @@
+
+resource "null_resource" "get_kube_config" {
+  depends_on = [
+    kubernetes_ingress_v1.contoso-website
+  ]
+  triggers   = { always_run = timestamp() }
+  // The order of input values are important for bash
+  provisioner "local-exec" {
+    command     = "chmod +x ${path.module}/get-info.sh ;${path.module}/get-info.sh ${data.terraform_remote_state.aks.outputs.aks_cluster_resourcegroup_name} ${data.terraform_remote_state.aks.outputs.aks_cluster_name}"
+    interpreter = ["bash", "-c"]
+  }
+}
+
 resource "kubernetes_deployment" "contoso-website" {
   metadata {
     name = "contoso-website"
@@ -71,7 +84,7 @@ resource "kubernetes_ingress_v1" "contoso-website" {
   }
   spec {
     rule {
-      host = "contoso.44820afcfc8247019ff1.westeurope.aksapp.io"
+      host = "contoso.${data.terraform_remote_state.aks.outputs.aks_http_application_routing_zone_name}" 
       http {
         path {
           backend {
@@ -89,3 +102,4 @@ resource "kubernetes_ingress_v1" "contoso-website" {
     }
   }
 }
+
