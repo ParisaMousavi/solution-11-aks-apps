@@ -17,4 +17,6 @@ kubectl get node
 
 # kubectl apply -f azure-vote.yaml
 
-# kubectl get service azure-vote-front --watch
+kubectl get service azure-vote-front 
+# The EXTERNAL-IP output for the azure-vote-front service will initially show as pending.
+# Once the EXTERNAL-IP address changes from pending to an actual public IP address, use CTRL-C to stop the kubectl watch process.
