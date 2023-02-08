@@ -1,0 +1,39 @@
+docker build --tag customer:dev --file Dockerfile ..
+
+docker run -d -p 0.0.0.0:49156:80/tcp --env AWS_SECRET_ACCESS_KEY=000 --env AWS_REGION=eu-central-1 --env AWS_ACCESS_KEY_ID=000 --env ASPNETCORE_ENVIRONMENT=Development  manualcustomer:dev
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-api-logs
+  namespace: sample-api-logs
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: sample-api-logs
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-api-logs
+  namespace: sample-api-logs
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sample-api-logs
+  template:
+    metadata:
+      labels:
+        app: sample-api-logs
+    spec:
+      containers:
+        - name: sampleapilogs-kubernetes
+          image: parisadocker/logs:1708
+          ports:
+            - name: http
+              containerPort: 80
