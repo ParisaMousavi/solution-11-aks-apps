@@ -12,7 +12,7 @@ spec:
       name: oidc
       env:
         - name: KEYVAULT_URL
-          value: ${KEYVAULT_URL}
+          value: "https://proja-kv-app-dev-32-weu.vault.azure.net/"
         - name: SECRET_NAME
           value: secret-sauce
   nodeSelector:
