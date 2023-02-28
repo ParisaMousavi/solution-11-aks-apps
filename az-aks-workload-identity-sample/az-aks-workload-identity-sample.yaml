@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: az-aks-workload-identity-sample
-  namespace: az-aks-workload-identity-sample
+  namespace: ${NAMESPACE}
   labels:
     azure.workload.identity/use: "true"
 spec:
@@ -12,7 +12,7 @@ spec:
       name: oidc
       env:
         - name: KEYVAULT_URL
-          value: https://proja-kv-app-dev-32-weu.vault.azure.net/
+          value: ${KEYVAULT_URL}
         - name: SECRET_NAME
           value: secret-sauce
   nodeSelector:
