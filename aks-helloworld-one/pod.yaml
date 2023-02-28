@@ -5,7 +5,7 @@ metadata:
   labels:
     env: test
 spec:
-  nodeName: aks-mypool-75231595-vmss000001
+  nodeName: aks-mypool-16444782-vmss000000
   containers:
   - name: nginx
     image: nginx

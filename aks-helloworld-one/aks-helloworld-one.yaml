@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: aks-helloworld-one  
+  namespace: aks-hello
 spec:
-  replicas: 10
+  replicas: 11
   selector:
     matchLabels:
       app: aks-helloworld-one
@@ -12,6 +13,8 @@ spec:
       labels:
         app: aks-helloworld-one
     spec:
+      nodeSelector:
+        "type": user-pool      
       containers:
       - name: aks-helloworld-one
         image: mcr.microsoft.com/azuredocs/aks-helloworld:v1
@@ -32,6 +35,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: aks-helloworld-one  
+  namespace: aks-hello
 spec:
   type: ClusterIP
   ports:
