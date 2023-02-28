@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aks-hello
+  labels:
+    name: aks-hello
+  annotations:
+    scheduler.alpha.kubernetes.io/node-selector: type=user-pool
+spec: {}
+status: {}
