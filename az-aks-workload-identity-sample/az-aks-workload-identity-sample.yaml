@@ -12,7 +12,7 @@ spec:
       name: oidc
       env:
         - name: KEYVAULT_URL
-          value: ${secrets.KEYVAULT_URL}
+          value: ${KEYVAULT_URL}
         - name: SECRET_NAME
           value: secret-sauce
   nodeSelector:
